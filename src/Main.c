@@ -123,13 +123,9 @@ bool execute_machine(int *pos, char *str, char *state, MT *machine, int middle) 
 					printf("Escrevendo. String:\n");
 					write_symbol(str, pos, machine->transitions[i], middle);
 					change_state(str, pos, machine->transitions[i].direction);
-					if (strcmp(state, "fb") == 0) {
-						accept = true;
-					}
 					break;
 				}
 			}
-			return false; // arrumar essa linha
 		}
 		(*pos)++;
 	}
@@ -225,6 +221,9 @@ char* convert_str(const char* str) {
 	if (strcmp(str, "scc") == 0) {
 		return "b";
 	}
+	if (strcmp(str, "sccc") == 0) {
+		return "c";
+	}
 }
 
 void translate_str(char *destiny, char *src, int pos) {
@@ -246,7 +245,7 @@ void translate_str(char *destiny, char *src, int pos) {
 }
 
 int main() {
-	char string[200] = "fascfascdfasccfbsccdfbsccfbsccd#scscsccscc";
+	char string[200] = "fascfascccdfasccfbscccdfbsccfbscccd#scscsccscc";
 	int middle;
 	char* decoded_str = (char*)malloc(100 * sizeof(char));
 	if (!decoded_str) return NULL;
